@@ -1,5 +1,0 @@
-if(EXISTS "/home/ximus/SE4HPC/SE4HPC_project_part2/build/test_multiplication[1]_tests.cmake")
-  include("/home/ximus/SE4HPC/SE4HPC_project_part2/build/test_multiplication[1]_tests.cmake")
-else()
-  add_test(test_multiplication_NOT_BUILT test_multiplication_NOT_BUILT)
-endif()
