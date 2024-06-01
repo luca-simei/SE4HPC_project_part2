@@ -16,7 +16,7 @@ jobs:
 
     - name: Build
       run: |
-        make
+        ./build.sh
 
     - name: Run Tests
       run: |
