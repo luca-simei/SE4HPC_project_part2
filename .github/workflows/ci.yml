@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - name: Set up MPI
       run: |
@@ -20,4 +20,9 @@ jobs:
 
     - name: Run Tests
       run: |
-        mpirun -np 4 ./matrix_multiplication
+        cd build
+        ./test_multiplication
+
+    - name: Build Singularity Image
+      run: |
+        singularity build matrix_multiplication.sif Singularity.def
