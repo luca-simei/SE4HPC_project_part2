@@ -5,7 +5,7 @@
 #SBATCH --ntasks=2
 #SBATCH --nodes=1
 #SBATCH --time=00:10:00
-#sbatch --partition=g100_all_serial
+#SBATCH --partition=g100_all_serial
 
 module load singularity
 
