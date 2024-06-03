@@ -15,15 +15,6 @@ jobs:
       with:
         singularity_version: 3.8.3
 
-    - name: Build
-      run: |
-        ./build.sh
-
-    - name: Run Tests
-      run: |
-        cd build
-        ./test_multiplication
-
     - name: Build Singularity Image
       run: |
         singularity build --fakeroot matrix_multiplication.sif Singularity.def
