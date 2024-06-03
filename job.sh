@@ -3,6 +3,9 @@
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
 #SBATCH --ntasks=2
+#SBATCH --nodes=1
+#SBATCH --time=00:10:00
+#sbatch --partition=g100_all_serial
 
 module load singularity
 
@@ -11,4 +14,4 @@ SINGULARITY_IMAGE=matrix_multiplication.sif
 export TMPDIR=$HOME/tmp
 mkdir -p $TMPDIR
 
-singularity exec --bind $TMPDIR:/tmp $SINGULARITY_IMAGE /bin/bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 /app/project/main"
+singularity exec --bind $TMPDIR:$TMPDIR $SINGULARITY_IMAGE bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 /app/project/main"
