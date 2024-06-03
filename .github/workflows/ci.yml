@@ -45,7 +45,7 @@ jobs:
         libssl-dev
 
     - name: Install Singularity
-      run |
+      run: |
         wget https://github.com/sylabs/singularity/releases/download/v4.1.3/singularity-4.1.3.deb
         sudo dpkg -i singularity-4.1.3.deb
 
