@@ -10,6 +10,8 @@ From: ubuntu:20.04
     apt-get update && 
     apt-get install -y g++ cmake libopenmpi-dev
 
+    cd project
+
     mkdir build
     cd build
     cmake ..
