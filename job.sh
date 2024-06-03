@@ -14,4 +14,4 @@ SINGULARITY_IMAGE=matrix_multiplication.sif
 export TMPDIR=$HOME/tmp
 mkdir -p $TMPDIR
 
-singularity exec --bind $TMPDIR:$TMPDIR $SINGULARITY_IMAGE bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 /app/project/build/main"
+singularity exec --bind $TMPDIR:$TMPDIR $SINGULARITY_IMAGE bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 /project/main"

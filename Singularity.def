@@ -2,13 +2,18 @@ Bootstrap: docker
 From: ubuntu:20.04
 
 %post
-    apt-get update && apt-get install -y mpich
-    mkdir -p /app
-    cp -r /project /app
+    apt-get update && 
+    apt-get install -y g++ cmake libopenmpi-dev
 
 %files
     ./ /project
+    cd project
+    mkdir -p build
+    cd build
+    cmake ..
+    cmake build .
+    cp main ..
+    cd ..
 
 %runscript
-    cd /app/project/build
-    mpirun -np 2 ./main
+    mpirun -np 2 /project/main
