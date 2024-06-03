@@ -55,3 +55,29 @@ jobs:
     - name: Build Singularity Image
       run: |
         sudo singularity build matrix_multiplication.sif Singularity.def
+
+    - name: Install sshpass
+      run: |
+        sudo apt-get update && sudo apt-get install -y sshpass
+
+    - name: Transfer stuff via scp
+      env: 
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+      run: |
+        scp job.sh SSH_USER@login.g100.cineca.it:.
+        scp matrix_multiplication.sif SSH_USER@login.g100.cineca.it:.
+
+    - name: Access Cineca
+      env: 
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+      run: |
+        sshpass -p $SSH_PASS ssh SSH_USER@login.g100.cineca.it
+
+    - name: Run job
+      env: 
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+      run: |
+        ./job.sh
