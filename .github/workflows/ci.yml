@@ -25,6 +25,8 @@ jobs:
       run: |
         cd build
         ./test_multiplication
+        cd ..
+        rm -rf build
 
     - name: Install dependencies
       run: |
