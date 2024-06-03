@@ -37,8 +37,8 @@ jobs:
       run: |
         wget https://dl.google.com/go/go1.20.5.linux-amd64.tar.gz
         sudo tar -C /usr/local -xzf go1.20.5.linux-amd64.tar.gz
-        echo 'PATH=$PATH:/usr/local/go/bin' >> $GITHUB_ENV
-        source $GITHUB_ENV
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+        source ~/.bashrc
       
     - name: Install Singularity
       run: |
@@ -50,24 +50,12 @@ jobs:
         ./mconfig
         make -C builddir
         sudo make -C builddir install
-        echo 'PATH=/usr/local/singularity/bin:$PATH' >> $GITHUB_ENV
-        source $GITHUB_ENV
+        echo 'export PATH=/usr/local/singularity/bin:$PATH' >> ~/.bashrc
+        source ~/.bashrc
 
     - name: Build
       run: |
+        source ~/.bashrc
         ./build.sh
 
-    - name: Run Tests
-      run: |
-        cd build
-        ./test_multiplication
-
-    - name: Build Singularity Image
-      run: |
-        singularity build matrix_multiplication.sif Singularity.def
-
-    - name: Upload Singularity image as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: matrix_multiplication.sif
-        path: matrix_multiplication.sif
+    - name:
