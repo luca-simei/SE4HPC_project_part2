@@ -25,18 +25,6 @@ jobs:
         cd build
         ./test_multiplication
 
-     - name: Install Singularity
-      run: |
-        export PATH=$PATH:/usr/local/go/bin
-        export VERSION=3.8.3
-        wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz
-        tar -xzf singularity-${VERSION}.tar.gz
-        cd singularity
-        ./mconfig
-        make -C builddir
-        sudo make -C builddir install
-        echo 'export PATH=/usr/local/singularity/bin:$PATH' >> $GITHUB_ENV
-
     - name: Build Singularity Image
       run: |
         singularity build matrix_multiplication.sif Singularity.def
