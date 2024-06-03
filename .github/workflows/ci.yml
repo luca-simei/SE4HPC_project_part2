@@ -68,13 +68,9 @@ jobs:
         sshpass -p $SSH_PASS scp job.sh $SSH_USER@login.g100.cineca.it:.
         sshpass -p $SSH_PASS scp matrix_multiplication.sif $SSH_USER@login.g100.cineca.it:.
 
-    - name: Access Cineca
+    - name: Run job on Cineca
       env: 
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_PASS: ${{ secrets.SSH_PASS }}
       run: |
-        sshpass -p $SSH_PASS ssh $SSH_USER@login.g100.cineca.it
-
-    - name: Run job
-      run: |
-        ./job.sh
+        sshpass -p $SSH_PASS ssh $SSH_USER@login.g100.cineca.it 'sbatch job.sh'
