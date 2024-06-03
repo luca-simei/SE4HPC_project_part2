@@ -32,18 +32,26 @@ jobs:
     - name: Set up MPI
       run: |
         sudo apt-get install -y mpich
+
+    - name: Install Go
+      run: |
+        wget https://dl.google.com/go/go1.20.5.linux-amd64.tar.gz
+        sudo tar -C /usr/local -xzf go1.20.5.linux-amd64.tar.gz
+        echo 'PATH=$PATH:/usr/local/go/bin' >> $GITHUB_ENV
+        source $GITHUB_ENV
       
     - name: Install Singularity
       run: |
         export PATH=$PATH:/usr/local/go/bin
         export VERSION=4.1.3
-        wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz
+        wget https://github.com/apptainer/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz
         tar -xzf singularity-${VERSION}.tar.gz
         cd singularity
         ./mconfig
         make -C builddir
         sudo make -C builddir install
-        echo 'export PATH=/usr/local/singularity/bin:$PATH' >> $GITHUB_ENV
+        echo 'PATH=/usr/local/singularity/bin:$PATH' >> $GITHUB_ENV
+        source $GITHUB_ENV
 
     - name: Build
       run: |
@@ -56,7 +64,6 @@ jobs:
 
     - name: Build Singularity Image
       run: |
-        export PATH=/usr/local/singularity/bin:$PATH
         singularity build matrix_multiplication.sif Singularity.def
 
     - name: Upload Singularity image as artifact
