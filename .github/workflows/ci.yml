@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - uses: eWaterCycle/setup-singularity@v6
+    - uses: eWaterCycle/setup-singularity@v7
       with:
         singularity_version: 3.8.3
 
