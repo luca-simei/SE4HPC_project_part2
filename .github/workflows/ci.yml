@@ -45,7 +45,7 @@ jobs:
           squashfs-tools-ng \
           uidmap \
           wget \
-          zlibg-dev
+          zlib1g-dev
 
     - name: Install Singularity
       run: |
