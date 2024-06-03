@@ -53,9 +53,24 @@ jobs:
         echo 'export PATH=/usr/local/singularity/bin:$PATH' >> ~/.bashrc
         source ~/.bashrc
 
-    - name: Build
+   - name: Build
       run: |
         source ~/.bashrc
         ./build.sh
 
-    - name:
+    - name: Run Tests
+      run: |
+        source ~/.bashrc
+        cd build
+        ./test_multiplication
+
+    - name: Build Singularity Image
+      run: |
+        source ~/.bashrc
+        singularity build matrix_multiplication.sif Singularity.def
+
+    - name: Upload Singularity image as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: matrix_multiplication.sif
+        path: matrix_multiplication.sif
