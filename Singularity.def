@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: ubuntu:20.04
 
+%files
+    ./ /project
+
 %post
     export DEBIAN_FRONTED=noninteractive
 
@@ -10,14 +13,6 @@ From: ubuntu:20.04
         build-essentials \
         && apt-get clean
 
-    ./build.sh
-
-    mkdir -p /app
-    cp -r /project /app
-
-%files
-    ./ /project
-
 %runscript
-    cd /app/project/build
+    cd /project/build
     mpirun -np 2 ./main
