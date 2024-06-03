@@ -4,4 +4,11 @@
 #SBATCH --error=error.txt
 #SBATCH --ntasks=2
 
-singularity run matrix_multiplication.sif
+module load singularity
+
+SINGULARITY_IMAGE=matrix_multiplication.sif
+
+export TMPDIR=$HOME/tmp
+mkdir -p $TMPDIR
+
+singularity exec --bind $TMPDIR:/tmp $SINGULARITY_IMAGE /bin/bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 /app/project/main"
