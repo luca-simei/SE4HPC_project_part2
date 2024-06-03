@@ -10,5 +10,5 @@ From: ubuntu:20.04
     ./ /project
 
 %runscript
-    cd /app/project
-    mpirun -np 4 ./matrix_multiplication
+    cd /app/project/build
+    mpirun -np 2 ./main
