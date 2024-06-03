@@ -23,7 +23,8 @@ void multiplyMatricesWithoutErrors(const std::vector<std::vector<int>> &A,
 }
 
 // Function to generate a random matrix of size rows x cols
-std::vector<std::vector<int>> generateRandomMatrix(int rows, int cols, int minValue = -10, int maxValue = 100) {
+std::vector<std::vector<int>> generateRandomMatrix(int rows, int cols, int minValue = -10, int maxValue = 100) 
+{
     std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -35,7 +36,8 @@ std::vector<std::vector<int>> generateRandomMatrix(int rows, int cols, int minVa
 }
 
 // Function to fill a matrix with consecutive numbers for rows
-std::vector<std::vector<int>> fillMatrixConsecutiveRows(int numRows, int numCols) {
+std::vector<std::vector<int>> fillMatrixConsecutiveRows(int numRows, int numCols) 
+{
     // Initialize the matrix
     std::vector<std::vector<int>> matrix(numRows, std::vector<int>(numCols));
 
@@ -50,7 +52,8 @@ std::vector<std::vector<int>> fillMatrixConsecutiveRows(int numRows, int numCols
 }
 
 // Function to fill a matrix with consecutive numbers for columns
-std::vector<std::vector<int>> fillMatrixConsecutiveColumns(int numRows, int numCols) {
+std::vector<std::vector<int>> fillMatrixConsecutiveColumns(int numRows, int numCols) 
+{
     std::vector<std::vector<int>> matrix(numRows, std::vector<int>(numCols));
     for (int j = 0; j < numCols; ++j) {
         for (int i = 0; i < numRows; ++i) {
@@ -184,6 +187,10 @@ TEST(Step1_SameNumber, TestSameNumberMatrixMultiplication)
     // Multiply the matrices
     multiplyMatrices(A, B, result, rows, cols, cols);
 
+    // Multiply the matrices without errors
+    multiplyMatricesWithoutErrors(A, B, expected, rows, cols, cols);
+
+
     // Check if the result matches the expected result
     ASSERT_EQ(result, expected) << "Matrix multiplication test failed with same number: " << sameNumber;
 }
@@ -215,6 +222,8 @@ TEST(Step1_SameNumber, TestSameNumberMatrixMultiplicationEight)
 
     // Multiply the matrices
     multiplyMatrices(A, B, result, rows, cols, cols);
+
+
 
     // Check if the result matches the expected result
     ASSERT_EQ(result, expected) << "Matrix multiplication test failed with same number: " << sameNumber;
@@ -390,12 +399,11 @@ TEST(Step2_EdgeCases, TestMultiplyColbyRow) {
         {-7, -10, 34/10}
     };
     std::vector<std::vector<int>> C(3, std::vector<int>(3, 0));
+    std::vector<std::vector<int>> expected(3, std::vector<int>(3, 0));
 
     multiplyMatrices(A, B, C, 3, 1, 3);
 
-    std::vector<std::vector<int>> expected = {
-        {7}
-    };
+    multiplyMatricesWithoutErrors(A, B, expected, 3, 1, 3);
 
     ASSERT_EQ(C, expected);
 }
@@ -597,14 +605,6 @@ TEST(Step3_Find17, FindError17)
     multiplyMatrices(A, B, C, rowA, colA, colB);
 
     multiplyMatricesWithoutErrors(A, B, expected, rowA, colA, colB);
-    //print C
-    for (int i = 0; i < rowA; ++i) {
-        for (int j = 0; j < colB; ++j) {
-            std::cout << C[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()";
 }
 
