@@ -29,12 +29,6 @@ jobs:
         uidmap \
         libssl-dev
 
-    - name: Install Go
-      run: |
-        wget https://dl.google.com/go/go1.15.7.linux-amd64.tar.gz
-        sudo tar -C /usr/local -xzf go1.15.7.linux-amd64.tar.gz
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> $GITHUB_EN
-
     - name: Set up MPI
       run: |
         sudo apt-get install -y mpich
