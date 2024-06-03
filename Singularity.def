@@ -12,10 +12,10 @@ From: ubuntu:20.04
 
     cd project
 
-    mkdir build
+    mkdir -p build
     cd build
     cmake ..
-    cmake build .
+    cmake --build .
     cp main ..
     cd ..
 
