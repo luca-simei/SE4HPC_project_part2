@@ -147,7 +147,7 @@ TEST(Step0_Randomic, TestRandomMatrixMultiplication)
 }
 
 
-/*
+
 
 // STEP 1
 // fixed size matrix filled all with just one number, both for A and B
@@ -223,13 +223,14 @@ TEST(Step1_SameNumber, TestSameNumberMatrixMultiplicationEight)
     // Multiply the matrices
     multiplyMatrices(A, B, result, rows, cols, cols);
 
-
+    // Multiply the matrices without errors
+    multiplyMatricesWithoutErrors(A, B, expected, rows, cols, cols);
 
     // Check if the result matches the expected result
     ASSERT_EQ(result, expected) << "Matrix multiplication test failed with same number: " << sameNumber;
 }
 
-*/
+
 
 
 // STEP 2
