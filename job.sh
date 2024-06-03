@@ -5,4 +5,3 @@
 #SBATCH --ntasks=2
 
 singularity run matrix_multiplication.sif
-singularity stop matrix_multiplication.sif
