@@ -11,10 +11,45 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install dependencies
+      run: |
+        sudo apt-get update && sudo apt-get install -y \
+        build-essential \
+        libseccomp-dev \
+        pkg-config \
+        squashfs-tools \
+        cryptsetup \
+        runc \
+        wget \
+        git \
+        uuid-dev \
+        libgpgme-dev \
+        libseccomp-dev \
+        pkg-config \
+        uidmap \
+        libssl-dev
+
+    - name: Install Go
+      run: |
+        wget https://dl.google.com/go/go1.15.7.linux-amd64.tar.gz
+        sudo tar -C /usr/local -xzf go1.15.7.linux-amd64.tar.gz
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> $GITHUB_EN
+
     - name: Set up MPI
       run: |
-        sudo apt-get update
         sudo apt-get install -y mpich
+      
+    - name: Install Singularity
+      run: |
+        export PATH=$PATH:/usr/local/go/bin
+        export VERSION=3.8.3
+        wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz
+        tar -xzf singularity-${VERSION}.tar.gz
+        cd singularity
+        ./mconfig
+        make -C builddir
+        sudo make -C builddir install
+        echo 'export PATH=/usr/local/singularity/bin:$PATH' >> $GITHUB_ENV
 
     - name: Build
       run: |
@@ -27,4 +62,11 @@ jobs:
 
     - name: Build Singularity Image
       run: |
+        export PATH=/usr/local/singularity/bin:$PATH
         singularity build matrix_multiplication.sif Singularity.def
+
+    - name: Upload Singularity image as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: matrix_multiplication.sif
+        path: matrix_multiplication.sif
