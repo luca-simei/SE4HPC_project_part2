@@ -53,7 +53,7 @@ jobs:
         echo 'export PATH=/usr/local/singularity/bin:$PATH' >> ~/.bashrc
         source ~/.bashrc
 
-   - name: Build
+    - name: Build
       run: |
         source ~/.bashrc
         ./build.sh
