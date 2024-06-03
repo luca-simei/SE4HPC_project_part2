@@ -7,7 +7,7 @@ From: ubuntu:20.04
 
 %files
     ./ /project
-    mkdir -p build
+    mkdir build
     cd build
     cmake ..
     cmake build .
